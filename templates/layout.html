@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">;
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Eddy</title>
 </head>
 <body>
+
+    <header>
+        <div class="container">
+            <h1 class="logo">Eddy</h1>
+        </div>
+    </header>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
 
 </body>
 </html>
