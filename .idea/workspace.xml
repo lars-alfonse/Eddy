@@ -2,40 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89b2d7eb-148c-4c2f-8784-37787bd7279b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/routes.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/browser.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/react-dom-server.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/react-dom-server.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/react-dom.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/react-dom.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/react-with-addons.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/react-with-addons.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/react.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/react.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/_grid.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/_normalize.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/main.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_accordion.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_blockquote.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_breadcrumbs.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_buttons.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_forms.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_headings.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_master.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_media_objects.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_modal.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_navigation.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_notifications.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_pagination.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_panels.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_pricing_tables.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_progress_bars.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_tables.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_tabs.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_text.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_variables.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/charts/_bar.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/layout.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -76,11 +43,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routes.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="routes.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="layout.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/layout.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="4" column="16" lean-forward="false" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -102,6 +79,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -119,6 +97,7 @@
         <option value="$PROJECT_DIR$/WaveWriter.py" />
         <option value="$PROJECT_DIR$/NoteTranslator.py" />
         <option value="$PROJECT_DIR$/routes.py" />
+        <option value="$PROJECT_DIR$/templates/layout.html" />
       </list>
     </option>
   </component>
@@ -151,6 +130,11 @@
             </path>
             <path>
               <item name="Eddy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Eddy" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Eddy" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
             <path>
@@ -169,6 +153,7 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -208,7 +193,7 @@
     <frame x="952" y="0" width="976" height="1038" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3559499" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3559499" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -298,6 +283,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/layout.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="16" lean-forward="false" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="16" />
           <folding />
         </state>
       </provider>
