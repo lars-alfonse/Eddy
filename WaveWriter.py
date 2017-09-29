@@ -19,8 +19,6 @@ class WaveWriter(object):
             self.samplewidth = width
         if type != "default":
             self.comptype = type
-        if name != "default":
-            self.compname = name
 
         self.samplerate = rate
         self.framecount = frame

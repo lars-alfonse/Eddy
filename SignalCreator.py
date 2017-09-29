@@ -19,4 +19,3 @@ class SignalCreator():
             for sample in data:
                 self.signal.append(sample)
         return self.signal
-    
