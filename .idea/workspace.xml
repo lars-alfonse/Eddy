@@ -2,10 +2,40 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89b2d7eb-148c-4c2f-8784-37787bd7279b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/NoteTranslator.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/routes.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/browser.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/react-dom-server.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/react-dom-server.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/react-dom.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/react-dom.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/react-with-addons.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/react-with-addons.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/react.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/react.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/_grid.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/_normalize.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/main.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_accordion.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_blockquote.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_breadcrumbs.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_buttons.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_forms.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_headings.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_master.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_media_objects.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_modal.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_navigation.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_notifications.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_pagination.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_panels.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_pricing_tables.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_progress_bars.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_tables.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_tabs.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_text.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/_variables.scss" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/scss/themes/default/charts/_bar.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SignalCreator.py" afterPath="$PROJECT_DIR$/SignalCreator.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WaveWriter.py" afterPath="$PROJECT_DIR$/WaveWriter.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,11 +66,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NoteTranslator.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NoteTranslator.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/NoteTranslator.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="294">
-              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/routes.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -78,6 +118,7 @@
         <option value="$PROJECT_DIR$/SignalCreator.py" />
         <option value="$PROJECT_DIR$/WaveWriter.py" />
         <option value="$PROJECT_DIR$/NoteTranslator.py" />
+        <option value="$PROJECT_DIR$/routes.py" />
       </list>
     </option>
   </component>
@@ -130,7 +171,11 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\larsa\PycharmProjects\Eddy\static" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\larsa\PycharmProjects\Eddy\static" />
       <recent name="C:\Users\larsa\PycharmProjects\Eddy" />
     </key>
   </component>
@@ -193,6 +238,22 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/React/js/react.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SignalCreator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SongData.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -209,15 +270,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SignalCreator.py">
+    <entry file="file://$PROJECT_DIR$/NoteTranslator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="294">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/React/js/react.js">
+    <entry file="file://$PROJECT_DIR$/static/scss/themes/default/charts/_bar.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -225,10 +286,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/NoteTranslator.py">
+    <entry file="file://$PROJECT_DIR$/static/js/react.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
