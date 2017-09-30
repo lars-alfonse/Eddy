@@ -1,14 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
+    <div id="demo-contents"></div>
     <div id="base"></div>
 
     <script type="text/babel">
-        var mySound = document.createElement("audio");
-        mySound.src = 'static/music/Estelle_-_American_Boy_Feat_Kanye_West_Video.wav';
-        mySound.type = 'audio/wav';
-        mySound.setAttribute("preload", "none");
-        mySound.setAttribute("controls", "none");
-        mySound.setAttribute("autostart", "false");
+        document.addEventListener("DOMContentLoaded", function() {
+            var _handleFileDrop = function(files, event) {
+                console.log(files, event);
+            };
+            var styles = {border: "1px solid black", width: 600, color: "black", padding: 20};
+            var myUploader = React.createElement(
+                "div", {className: "my-uploader", style: styles},
+                    "This is the \".my-uploader\" div. Try dragging a file!",
+                    React.createElement(
+                        ReactFileDrop, {onDrop: _handleFileDrop, frame: document, dropEffect: "copy"},
+                            "Drop some files here!"
+                    )
+            );
+            React.render(myUploader, document.getElementById("demo-contents"))
+        });
         class Play extends React.Component {
             render() {
                 return (
@@ -18,12 +28,11 @@
                 );
             }
         }
-        class Skip extends React.Component {
-            render() {
+        class Song extends React.Component {
+            render(){
                 return (
-                    <button className="skipButton">
-                        <i className="fa fa-play" aria-hidden="true"></i>
-                    </button>
+                    <audio type="audio/wav" autostart="false" id="music" src='static/music/Estelle_-_American_Boy_Feat_Kanye_West_Video.wav'>
+                    </audio>
                 );
             }
         }
@@ -31,14 +40,14 @@
             renderPlay(){
                 return <Play />;
             }
-            renderSkip(){
-                return <Skip />;
+            renderSong(){
+                return <Song />;
             }
             render() {
                 return (
                     <div className="wavePlayer">
                         {this.renderPlay()}
-                        {this.renderSkip()}
+                        {this.renderSong()}
                     </div>
                 );
             }
@@ -48,6 +57,7 @@
             document.getElementById('base')
         )
         function aud_play_pause() {
+            var mySound = document.getElementById("music");
             if (mySound.paused) {
                  $('#playPause').removeClass('fa fa-play');
                  $('#playPause').addClass('fa fa-pause');
