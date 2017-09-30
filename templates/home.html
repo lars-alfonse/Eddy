@@ -1,18 +1,64 @@
 {% extends "layout.html" %}
 {% block content %}
-   <div id="content"></div>
+    <div id="base"></div>
+
     <script type="text/babel">
-
-        var realPython = React.createClass({
-        render: function() {
-        return (<h2>test, from Real Python!</h2>);
+        var mySound = document.createElement("audio");
+        mySound.src = 'static/music/Estelle_-_American_Boy_Feat_Kanye_West_Video.wav';
+        mySound.type = 'audio/wav';
+        mySound.setAttribute("preload", "none");
+        mySound.setAttribute("controls", "none");
+        mySound.setAttribute("autostart", "false");
+        class Play extends React.Component {
+            render() {
+                return (
+                    <button className="playButton" onClick={aud_play_pause}>
+                        <i className="fa fa-play" aria-hidden="true" id="playPause"></i>
+                    </button>
+                );
+            }
         }
-        });
-
+        class Skip extends React.Component {
+            render() {
+                return (
+                    <button className="skipButton">
+                        <i className="fa fa-play" aria-hidden="true"></i>
+                    </button>
+                );
+            }
+        }
+        class WavePlayer extends React.Component {
+            renderPlay(){
+                return <Play />;
+            }
+            renderSkip(){
+                return <Skip />;
+            }
+            render() {
+                return (
+                    <div className="wavePlayer">
+                        {this.renderPlay()}
+                        {this.renderSkip()}
+                    </div>
+                );
+            }
+        }
         ReactDOM.render(
-            React.createElement(realPython, null),
-            document.getElementById('content')
-        );
+            <WavePlayer />,
+            document.getElementById('base')
+        )
+        function aud_play_pause() {
+            if (mySound.paused) {
+                 $('#playPause').removeClass('fa fa-play');
+                 $('#playPause').addClass('fa fa-pause');
+                mySound.play();
 
+            }
+            else {
+                $('#playPause').removeClass('fa fa-pause');
+                $('#playPause').addClass('fa fa-play');
+                mySound.pause();
+            }
+        }
     </script>
 {% endblock %}

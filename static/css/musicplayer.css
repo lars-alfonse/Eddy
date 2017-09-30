@@ -1,0 +1,9 @@
+.musicplayer{
+    margin: 15px 0;
+    background-color: blue;
+    width: 100%;
+    height: 100px;
+}
+.musicplayer > a {
+    color: white;
+}
