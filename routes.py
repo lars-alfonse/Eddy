@@ -26,9 +26,6 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
