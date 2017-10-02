@@ -5,11 +5,15 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
 from werkzeug.utils import secure_filename
 from forms import LoginForm
 import flask_sqlalchemy
+from flask_login import LoginManager, login_user, logout_user, current_user, login_required
+from config import basedir
 
 app = Flask(__name__)
 
 app.config.from_object('config')
 db = flask_sqlalchemy.SQLAlchemy(app)
+lm = LoginManager()
+lm.init_app(app)
 
 import models
 
@@ -25,9 +29,14 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+@lm.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if g.user is not None and g.user.is_authenticated:
+        return redirect(url_for('logout'))
     form = LoginForm()
     if form.validate_on_submit():
         flash('Login requested for username="%s", password="%s", remember_me=%s' %(form.username.data, form.password.data, str(form.remember_me.data)))
@@ -36,7 +45,7 @@ def login():
 
 @app.route('/logout')
 def logout():
-    session.pop('logged_in', None)
+    logout_user()
     flash('You were logged out')
     return redirect(url_for('show_entries'))
 
