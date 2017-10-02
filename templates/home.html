@@ -1,5 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
+    <form method=post enctype=multipart/form-data>
+      <p><input type=file name=file>
+         <input type=submit value=Upload>
+    </form>
     <div id="demo-contents"></div>
     <div id="base"></div>
 
@@ -28,10 +32,19 @@
                 );
             }
         }
+        class Skip extends React.Component {
+            render(){
+                return (
+                    <button className="playButton" onClick={skip}>
+                        <i className="fa fa-chevron-right" aria-hidden="true" id="playPause"></i>
+                    </button>
+                );
+            }
+        }
         class Song extends React.Component {
             render(){
                 return (
-                    <audio type="audio/wav" autostart="false" id="music" src='static/music/Estelle_-_American_Boy_Feat_Kanye_West_Video.wav'>
+                    <audio type="audio/wav" autostart="false" currentTime="20" preload="auto" id="music" src='static/music/Estelle_-_American_Boy_Feat_Kanye_West_Video.wav'>
                     </audio>
                 );
             }
@@ -43,10 +56,14 @@
             renderSong(){
                 return <Song />;
             }
+            renderSkip(){
+                return <Skip />;
+            }
             render() {
                 return (
                     <div className="wavePlayer">
                         {this.renderPlay()}
+                        {this.renderSkip()}
                         {this.renderSong()}
                     </div>
                 );
@@ -56,12 +73,16 @@
             <WavePlayer />,
             document.getElementById('base')
         )
+        function skip(){
+            var song = document.getElementById("music");
+            song.currentTime += 30;
+        }
         function aud_play_pause() {
             var mySound = document.getElementById("music");
             if (mySound.paused) {
                  $('#playPause').removeClass('fa fa-play');
                  $('#playPause').addClass('fa fa-pause');
-                mySound.play();
+                 mySound.play();
 
             }
             else {

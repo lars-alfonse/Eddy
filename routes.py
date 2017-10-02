@@ -2,16 +2,11 @@ import sqlite3
 import os
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
-app.config.update(dict(
-    DATABASE=os.path.join(app.root_path, 'eddy.db'),
-    SECRET_KEY='development key',
-    USERNAME='admin',
-    PASSWORD='default'
-))
-app.config.from_envvar('FLASKR_SETTINGS', silent=True)
+app.config.from_object('config')
 
 def connect_db():
     rv = sqlite3.connect(app.config['DATABASE'])
@@ -24,11 +19,6 @@ def init_db():
         db.cursor().executescript(f.read())
     db.commit()
 
-@app.cli.command('initdb')
-def initdb_command():
-    """Initializes the database."""
-    init_db()
-    print('Initialized the database.')
 
 def get_db():
     """Opens a new database connection if there is none yet for the
@@ -44,9 +34,36 @@ def close_db(error):
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return render_template('home.html')
     return render_template('home.html')
+
+
+UPLOAD_FOLDER = '/static/music'
+ALLOWED_EXTENSIONS = set(['wav'])
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -59,7 +76,7 @@ def login():
         else:
             session['logged_in'] = True
             flash('You were logged in')
-            return redirect(url_for('show_entries'))
+            return redirect(url_for('home'))
     return render_template('login.html', error=error)
 
 @app.route('/logout')
