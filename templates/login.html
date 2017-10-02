@@ -5,12 +5,13 @@
   <form action="" method=post name="login">
     {{ form.hidden_tag() }}
     <dl>
-      <dt>Username:
-      <dd>{{ form.username(size=80) }}
-      <dt>Password:
-      <dd>{{ form.password(size=80) }}
-      <dd>{{ form.remember_me }} Remember Me
-      <dd><input type=submit value=Login>
+        <dt>Username:
+        <dd>{{ form.username(size=80) }}
+        <dt>Password:
+        <dd>{{ form.password(size=80) }}
+        <dd>{{ form.remember_me }} Remember Me
+        <dd><input type=submit value=Login>
     </dl>
   </form>
+<p>Register</p>
 {% endblock %}
