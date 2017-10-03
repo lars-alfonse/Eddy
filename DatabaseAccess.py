@@ -1,4 +1,4 @@
-import pickle
+import Pickler
 
 
 
@@ -12,4 +12,4 @@ import pickle
 
 
 def saveSong(song):
-    
+    pickle = Pickler.savePickle(song)
