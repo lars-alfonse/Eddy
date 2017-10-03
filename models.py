@@ -1,10 +1,14 @@
 from routes import db
 
+
+association_table = db.Table('association', db.Model.metadata, db.Column('user_id', db.Integer, db.ForeignKey('user.id')), db.Column('song_id', db.Integer, db.ForeignKey('song.id')))
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     password = db.Column(db.String(64), index=True, unique=False)
     email = db.relationship('Email', backref='user', lazy=False, uselist=False)
+    songs = db.relationship("Song", secondary=association_table)
 
     @property
     def is_authenticated(self):
@@ -32,4 +36,9 @@ class Email(db.Model):
     def __repr__(self):
         return '<Email %r>' % (self.email)
 
+class Song(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    seconds = db.Column(db.Integer)
+    file = db.Column(db.LargeBinary)
 
