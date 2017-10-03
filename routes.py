@@ -25,10 +25,20 @@ def before_request():
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def home():
+    if request.method == 'POST':
+        if 'file'not in request.files:
+            flash('No file part')
+            return render_template('home.html')
+        file = request.files['file']
+        if file.filename == '':
+            flash('No selected file')
+            return render_template('home.html')
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return render_template('home.html')
     return render_template('home.html')
 
-
-UPLOAD_FOLDER = '/static/music'
 ALLOWED_EXTENSIONS = set(['wav'])
 
 def allowed_file(filename):
@@ -43,10 +53,11 @@ def load_user(id):
 def login():
     if g.user:
         if g.user is not None and g.user.is_authenticated:
-            return redirect(url_for('index'))
+            return redirect(url_for('logout'))
     form = LoginForm()
     if form.validate_on_submit():
-        flash('Login requested for username="%s", password="%s", remember_me=%s' %(form.username.data, form.password.data, str(form.remember_me.data)))
+        if db.session.query(models.User).filter(models.User.username == form.username.data, models.User.password == form.password.data).count() > 0:
+            login_user(db.session.query(models.User).filter(models.User.username == form.username.data, models.User.password == form.password.data).first(), remember=form.remember_me.data)
         return redirect('/index')
     return render_template('login.html', title='Login', form=form)
 
@@ -55,21 +66,21 @@ def login():
 def logout():
     logout_user()
     flash('You were logged out')
-    return redirect(url_for('show_entries'))
+    return redirect('/index')
 
 
 @app.route('/register', methods=['GET','POST'])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        if db.session.query(models.User).filter(models.User.username == form.username).count() > 0:
+        if db.session.query(models.User).filter(models.User.username == form.username.data).count() > 0:
             return render_template('register.html', title='Register', form=form)
 
-        elif form.password != form.vpassword:
+        elif form.password.data != form.vpassword.data:
             return render_template('register.html', title='Register', form=form)
 
         else:
-            db.session.add(models.User(username=form.username, password=form.password))
+            db.session.add(models.User(username=form.username.data, password=form.password.data))
             db.session.commit()
 
         return redirect('login')
