@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+    <form action="" method=post name="login">
+        {{ form.hidden_tag() }}
+        <dl>
+            <dt>Username:
+            <dd>{{ form.username }}
+            <dt>Email:
+            <dd>{{ form.email }}
+            <dt>Password:
+            <dd>{{ form.password }}
+            <dt>Verify Password:
+            <dd>{{ form.vpassword }}
+            <dd><input type=submit value=Register>
+        </dl>
+    </form>
+{% endblock %}

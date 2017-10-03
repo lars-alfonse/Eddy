@@ -3,7 +3,7 @@ import os
 from flask import Flask, request, session, g, url_for, abort, \
      render_template, flash, redirect
 from werkzeug.utils import secure_filename
-from forms import LoginForm
+from forms import LoginForm, RegisterForm
 import flask_sqlalchemy
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from config import basedir
@@ -50,11 +50,31 @@ def login():
         return redirect('/index')
     return render_template('login.html', title='Login', form=form)
 
+
 @app.route('/logout')
 def logout():
     logout_user()
     flash('You were logged out')
     return redirect(url_for('show_entries'))
+
+
+@app.route('/register', methods=['GET','POST'])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        if db.session.query(models.User).filter(models.User.username == form.username).count() > 0:
+            return render_template('register.html', title='Register', form=form)
+
+        elif form.password != form.vpassword:
+            return render_template('register.html', title='Register', form=form)
+
+        else:
+            db.session.add(models.User(username=form.username, password=form.password))
+            db.session.commit()
+
+        return redirect('login')
+    return render_template('register.html', title='Register', form=form)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

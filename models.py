@@ -4,7 +4,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     password = db.Column(db.String(64), index=True, unique=False)
-    email = db.relationship('email', backref='user', lazy=False, uselist=False)
+    email = db.relationship('Email', backref='user', lazy=False, uselist=False)
 
     @property
     def is_authenticated(self):

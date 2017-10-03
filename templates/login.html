@@ -6,12 +6,12 @@
     {{ form.hidden_tag() }}
     <dl>
         <dt>Username:
-        <dd>{{ form.username(size=80) }}
+        <dd>{{ form.username }}
         <dt>Password:
-        <dd>{{ form.password(size=80) }}
+        <dd>{{ form.password }}
         <dd>{{ form.remember_me }} Remember Me
         <dd><input type=submit value=Login>
     </dl>
   </form>
-<p>Register</p>
+<a href="{{ url_for('register') }}">Register</a>
 {% endblock %}

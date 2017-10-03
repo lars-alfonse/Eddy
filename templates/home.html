@@ -44,7 +44,7 @@
         class Song extends React.Component {
             render(){
                 return (
-                    <audio type="audio/wav" autostart="false" currentTime="20" preload="auto" id="music" src='static/music/Estelle_-_American_Boy_Feat_Kanye_West_Video.wav'>
+                    <audio type="audio/wav" autostart="false" volume="1.0" preload="auto" id="music" src='static/music/Estelle_-_American_Boy_Feat_Kanye_West_Video.wav'>
                     </audio>
                 );
             }
@@ -53,6 +53,7 @@
             renderPlay(){
                 return <Play />;
             }
+
             renderSong(){
                 return <Song />;
             }
