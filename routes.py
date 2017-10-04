@@ -5,6 +5,7 @@ from flask import Flask, request, session, g, url_for, abort, \
 from werkzeug.utils import secure_filename
 from forms import LoginForm, RegisterForm
 import flask_sqlalchemy
+
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from config import basedir
 
@@ -16,7 +17,7 @@ db = flask_sqlalchemy.SQLAlchemy(app)
 lm = LoginManager()
 lm.init_app(app)
 
-import models
+import models, SongProcessor
 
 @app.before_request
 def before_request():
@@ -25,6 +26,9 @@ def before_request():
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def home():
+    if g.user:
+        if g.user is not None and g.user.is_authenticated:
+            
     if request.method == 'POST':
         if 'file'not in request.files:
             flash('No file part')
@@ -36,6 +40,8 @@ def home():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            processor = SongProcessor.SongProcessor()
+            processor.process(os.path.join(app.config['UPLOAD_FOLDER'], filename), filename)
             return render_template('home.html')
     return render_template('home.html')
 

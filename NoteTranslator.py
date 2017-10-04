@@ -4,7 +4,7 @@ class NoteTranslator():
 
     def signalToNote(self, signal, sampleRate):
         fftsignal = numpy.fft.fft(signal)
-        freqcollection = numpy.fft.fftfreq(fftsignal)
+        freqcollection = numpy.fft.fftfreq(len(fftsignal))
         index = numpy.argmax(numpy.abs(fftsignal))
         freq = freqcollection[index]
         freq_in_hz = abs(freq * sampleRate)
