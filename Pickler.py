@@ -6,5 +6,10 @@ def savePickle(object):
     return pobject
 
 def loadPickle(object):
-    loadedObject = pickle.load(object)
+    file = open("file.obj", "wb")
+    file.write(object)
+    file.close()
+    readfile = open("file.obj", "rb")
+    loadedObject = pickle.load(readfile)
+    readfile.close()
     return loadedObject

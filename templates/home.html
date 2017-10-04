@@ -8,6 +8,14 @@
     <div id="base"></div>
 
     <script type="text/babel">
+        function changeSource(e){
+            e.preventDefault();
+            var elm = e.target;
+            var audio = document.getElementById('music');
+            var source = document.getElementById('musicSource');
+            source.src = elm.getAttribute('data-value');
+            audio.load();
+        };
         document.addEventListener("DOMContentLoaded", function() {
             var _handleFileDrop = function(files, event) {
                 console.log(files, event);
@@ -26,7 +34,9 @@
         class SongFile extends React.Component{
             render(){
                 return(
-                <button 
+                <button id="songSelector" data-value="{this.props.source}">
+                    <p>{this.props.songName}</p>
+                </button>
                 );
             }
         }
@@ -51,7 +61,8 @@
         class Song extends React.Component {
             render(){
                 return (
-                    <audio type="audio/wav" autostart="false" volume="1.0" preload="auto" id="music" src='static/music/Estelle_-_American_Boy_Feat_Kanye_West_Video.wav'>
+                    <audio type="audio/wav" autostart="false" volume="1.0" preload="auto" id="music">
+                        <source id="musicSource" src='static/music/Estelle_-_American_Boy_Feat_Kanye_West_Video.wav'></source>
                     </audio>
                 );
             }
@@ -60,7 +71,14 @@
             renderPlay(){
                 return <Play />;
             }
-
+            renderMusic(){
+                return
+                <div>
+                {% for item in list %}
+                    <SongFile source="{{item.path}}" songName="{{item.name}}" />
+                {% endfor %}
+                </div>
+            }
             renderSong(){
                 return <Song />;
             }
@@ -73,6 +91,12 @@
                         {this.renderPlay()}
                         {this.renderSkip()}
                         {this.renderSong()}
+                        {% for item in list %}
+                        <button id="songSelector" onClick={changeSource} data-value="{{item.path}}">
+                            <p>{{item.name}}</p>
+                        </button>
+                        {% endfor %}
+                        {this.renderMusic()}
                     </div>
                 );
             }

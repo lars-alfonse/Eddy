@@ -14,17 +14,19 @@ from flask import g
 def getSongs():
     user = g.user
     songs = []
-    savedsongs = user.songs.all()
+    savedsongs = user.songs
     for data in savedsongs:
         song = Pickler.loadPickle(data.file)
         songs.append(song)
     return  songs
 
 
-def saveSong(song):
+def saveSong(song, path):
+    song.path= path
     pickle = Pickler.savePickle(song)
     dbsong =  models.Song()
     dbsong.seconds = song.seconds
+    dbsong.path = path
     dbsong.name = song.name
     dbsong.file = pickle
     if not checkForSong(dbsong):
@@ -45,6 +47,6 @@ def saveSong(song):
 def checkForSong(dbsong):
     query = db.session.query(models.Song).filter(models.Song.name == dbsong.name, models.Song.seconds == dbsong.seconds)
     if query.count() > 0:
-        return True
+        return False
     else:
         return False

@@ -6,3 +6,4 @@ class SongData(object):
     tempo = 0.0
     beats = 0.0
     note_on_beat = [()]
+    path = ""

@@ -29,7 +29,7 @@ def home():
     songlist = []
     if g.user:
         if g.user is not None and g.user.is_authenticated:
-            songlist = DatabaseAccess.GetSongs()
+            songlist = DatabaseAccess.getSongs()
     if request.method == 'POST':
         if 'file'not in request.files:
             flash('No file part')

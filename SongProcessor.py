@@ -15,4 +15,4 @@ class SongProcessor():
                 continue
             note = self.translator.signalToNote(self.splitSignal[index], self.song.sampleRate)
             self.song.note_on_beat.append((note, index))
-        DatabaseAccess.saveSong(self.song)
+        DatabaseAccess.saveSong(self.song, file)
