@@ -7,3 +7,4 @@ class SongData(object):
     beats = 0.0
     note_on_beat = [()]
     path = ""
+    pattern = ""
