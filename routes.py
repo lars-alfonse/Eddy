@@ -17,7 +17,7 @@ db = flask_sqlalchemy.SQLAlchemy(app)
 lm = LoginManager()
 lm.init_app(app)
 
-import models, SongProcessor
+import models, SongProcessor, DatabaseAccess
 
 @app.before_request
 def before_request():
@@ -26,9 +26,10 @@ def before_request():
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def home():
+    songlist = []
     if g.user:
         if g.user is not None and g.user.is_authenticated:
-            
+            songlist = DatabaseAccess.GetSongs()
     if request.method == 'POST':
         if 'file'not in request.files:
             flash('No file part')
@@ -42,8 +43,8 @@ def home():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             processor = SongProcessor.SongProcessor()
             processor.process(os.path.join(app.config['UPLOAD_FOLDER'], filename), filename)
-            return render_template('home.html')
-    return render_template('home.html')
+            return render_template('home.html', list=songlist)
+    return render_template('home.html', list=songlist)
 
 ALLOWED_EXTENSIONS = set(['wav'])
 

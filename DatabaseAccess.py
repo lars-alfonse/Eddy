@@ -11,6 +11,14 @@ from flask import g
 
 
 
+def getSongs():
+    user = g.user
+    songs = []
+    savedsongs = user.songs.all()
+    for data in savedsongs:
+        song = Pickler.loadPickle(data.file)
+        songs.append(song)
+    return  songs
 
 
 def saveSong(song):

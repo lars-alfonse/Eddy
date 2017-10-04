@@ -40,5 +40,6 @@ class Song(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     seconds = db.Column(db.Integer)
+    path = db.Column(db.String(200), unique=True)
     file = db.Column(db.LargeBinary)
 
