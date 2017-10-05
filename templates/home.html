@@ -9,8 +9,8 @@
 
     <script type="text/babel">
         function startTracks(){
-            var source = document.getElementById('musicSource');
-            if(source.src == ''){
+            var music = document.getElementById('music');
+            if(music.src == ''){
                 console.log('yas');
             }
             else{
@@ -23,8 +23,7 @@
             e.preventDefault();
             var elm = e.target;
             var audio = document.getElementById('music');
-            var source = document.getElementById('musicSource');
-            source.src = elm.getAttribute('data-value');
+            audio.src = elm.getAttribute('data-value');
             audio.load();
         };
         document.addEventListener("DOMContentLoaded", function() {
@@ -45,9 +44,7 @@
         class SongFile extends React.Component{
             render(){
                 return(
-                    <li id="songSelector" data-value="{this.props.songData.source}" onClick={changeSource}>
-                        {this.props.songData.songName}
-                    </li>
+                    <li id="songSelector" data-value={this.props.songData.source} onClick={changeSource}> {this.props.songData.songName} </li>
                 );
 
             }
@@ -60,13 +57,16 @@
                     value: null,
                 };
             }
+            componentDidMount(){
+                this.setState();
+            }
             renderSongs(){
                 var songButtons = [];
                 var tracks = document.getElementsByTagName('source');
                 for(var i = 0; i < tracks.length; i++){
                     var data = {
-                        source: tracks[i].getAttribute('data-path'),
-                        songName: tracks[i].getAttribute('data-name')
+                        source: tracks[i].getAttribute('src'),
+                        songName: tracks[i].getAttribute('id')
                     }
                     songButtons.push(<SongFile songData={data} />);
                 }
@@ -74,9 +74,9 @@
             }
             render(){
                 return(
-                <ul>
-                    {this.renderSongs()}
-                </ul>
+                    <div>
+                        {this.renderSongs()}
+                    </div>
                 );
             }
         }
