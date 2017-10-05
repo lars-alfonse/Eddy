@@ -8,6 +8,17 @@
     <div id="base"></div>
 
     <script type="text/babel">
+        function startTracks(){
+            var source = document.getElementById('musicSource');
+            if(source.src == ''){
+                console.log('yas');
+            }
+            else{
+               var music = document.getElementById('music');
+               music.play();
+            }
+
+        };
         function changeSource(e){
             e.preventDefault();
             var elm = e.target;
@@ -34,9 +45,45 @@
         class SongFile extends React.Component{
             render(){
                 return(
-                <button id="songSelector" data-value="{this.props.source}">
-                    <p>{this.props.songName}</p>
-                </button>
+                    <li id="songSelector" data-value="{this.props.songData.source}" onClick={changeSource}>
+                        {this.props.songData.songName}
+                    </li>
+                );
+
+            }
+
+        }
+        class SongFiles extends React.Component{
+            constructor() {
+                super();
+                this.state = {
+                    value: null,
+                };
+            }
+            renderSongs(){
+                var songButtons = [];
+                var tracks = document.getElementsByTagName('source');
+                for(var i = 0; i < tracks.length; i++){
+                    var data = {
+                        source: tracks[i].getAttribute('data-path'),
+                        songName: tracks[i].getAttribute('data-name')
+                    }
+                    songButtons.push(<SongFile songData={data} />);
+                }
+                return <ul>{songButtons}</ul>;
+            }
+            render(){
+                return(
+                <ul>
+                    {this.renderSongs()}
+                </ul>
+                );
+            }
+        }
+        class Track extends React.Component{
+            render(){
+                return (
+                    <source className="track" id={this.props.trackData.songName} src={this.props.trackData.source} data-pattern={this.props.trackData.pattern} data-seconds={this.props.trackData.seconds} data-beats={this.props.trackData.beats} data-active="True" ></source>
                 );
             }
         }
@@ -61,8 +108,7 @@
         class Song extends React.Component {
             render(){
                 return (
-                    <audio type="audio/wav" autostart="false" volume="1.0" preload="auto" id="music">
-                        <source id="musicSource" src='static/music/Estelle_-_American_Boy_Feat_Kanye_West_Video.wav'></source>
+                    <audio type="audio/wav" autostart="false" volume="1.0" preload="auto" src="" id="music">
                     </audio>
                 );
             }
@@ -72,14 +118,22 @@
                 return <Play />;
             }
             renderMusic(){
-                return
-                <div>
-                {% for item in list %}
-                    <SongFile source="{{item.path}}" songName="{{item.name}}" />
-                {% endfor %}
-                </div>
+                return <SongFiles />
             }
-            renderSong(){
+            renderTracks(){
+                var tracks = [];
+                {% for item in list %}
+                    var data = new Object();
+                    data.songName = "{{item.name}}";
+                    data.source =  "{{item.path}}";
+                    data.pattern = "{{item.pattern}}";
+                    data.seconds = "{{item.second}}";
+                    data.beats = "{{item.beats}}";
+                    tracks.push(<Track trackData={data} />);
+                {% endfor %}
+                return <div>{tracks}</div>
+            }
+            renderAudio(){
                 return <Song />;
             }
             renderSkip(){
@@ -90,12 +144,8 @@
                     <div className="wavePlayer">
                         {this.renderPlay()}
                         {this.renderSkip()}
-                        {this.renderSong()}
-                        {% for item in list %}
-                        <button id="songSelector" onClick={changeSource} data-value="{{item.path}}">
-                            <p>{{item.name}}</p>
-                        </button>
-                        {% endfor %}
+                        {this.renderAudio()}
+                        {this.renderTracks()}
                         {this.renderMusic()}
                     </div>
                 );
@@ -114,7 +164,7 @@
             if (mySound.paused) {
                  $('#playPause').removeClass('fa fa-play');
                  $('#playPause').addClass('fa fa-pause');
-                 mySound.play();
+                 startTracks();
 
             }
             else {

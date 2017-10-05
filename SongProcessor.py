@@ -21,5 +21,5 @@ class SongProcessor():
     def patternDetector(self):
         index = 1
         while index < len(self.song.note_on_beat):
-            self.song.pattern.append(self.song.note_on_beat[index][0])
+            self.song.pattern += self.song.note_on_beat[index][0][0]
             index+=4
