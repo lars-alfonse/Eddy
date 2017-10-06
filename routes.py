@@ -27,23 +27,32 @@ def before_request():
 @app.route('/index', methods=['GET', 'POST'])
 def home():
     songlist = []
-    if g.user:
-        if g.user is not None and g.user.is_authenticated:
-            songlist = DatabaseAccess.getSongs()
     if request.method == 'POST':
         if 'file'not in request.files:
             flash('No file part')
-            return render_template('home.html')
+            if g.user:
+                if g.user is not None and g.user.is_authenticated:
+                    songlist = DatabaseAccess.getSongs()
+            return render_template('home.html', list=songlist)
         file = request.files['file']
         if file.filename == '':
             flash('No selected file')
-            return render_template('home.html')
+            if g.user:
+                if g.user is not None and g.user.is_authenticated:
+                    songlist = DatabaseAccess.getSongs()
+            return render_template('home.html', list = songlist)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             processor = SongProcessor.SongProcessor()
             processor.process(os.path.join(app.config['UPLOAD_FOLDER'], filename), filename)
+            if g.user:
+                if g.user is not None and g.user.is_authenticated:
+                    songlist = DatabaseAccess.getSongs()
             return render_template('home.html', list=songlist)
+    if g.user:
+        if g.user is not None and g.user.is_authenticated:
+            songlist = DatabaseAccess.getSongs()
     return render_template('home.html', list=songlist)
 
 ALLOWED_EXTENSIONS = set(['wav'])

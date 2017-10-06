@@ -11,4 +11,8 @@ class NoteTranslator():
         if freq_in_hz != 0.0:
             note = librosa.core.hz_to_note(freq_in_hz, octave = False)
             return note
+        else:
+            note = ['X']
+            return note
+
 
