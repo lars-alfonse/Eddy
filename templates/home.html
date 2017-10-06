@@ -9,42 +9,6 @@
 
     <script type="text/babel">
 
-        function startTracks(){
-            var music = document.getElementById('music');
-            if(music.getAttribute('src') == "unknown"){
-                startMix();
-            }
-            else{
-               var music = document.getElementById('music');
-               music.play();
-            }
-        };
-        function startMix(){
-            var tracks = document.getElementsByClassName('true');
-            var index = Math.floor(Math.random()*tracks.length);
-            var music = document.getElementById('music');
-            music.src = tracks[index].getAttribute('src');
-            tracks[index].title = "true";
-            music.play();
-            setTrackChange();
-        }
-        function setTrackChange(){
-            var tracks = document.getElementsByClassName('true');
-            var unplayedTracks = [];
-            for(var i = 0; i < tracks.length; i++){
-                if(tracks[i].getAttribute('title') === "false"){
-                    unplayedTracks.push(tracks[i])
-                }
-            }
-            for(var i = 0; i < unplayedTracks.length; i++){
-
-            }
-            video.addEventListener("timeupdate", function(){
-                if(this.currentTime >= 5 * 60) {
-                    this.changeTrack();
-                }
-            });
-        }
         function changeSource(e){
             e.preventDefault();
             var elm = e.target;
@@ -182,6 +146,9 @@
             <WavePlayer />,
             document.getElementById('base')
         )
+
+    </script>
+    <script>
         function skip(){
             var song = document.getElementById("music");
             song.currentTime += 30;
@@ -199,6 +166,87 @@
                 $('#playPause').addClass('fa fa-play');
                 mySound.pause();
             }
+        }
+        function startTracks(){
+            console.log('line');
+            var music = document.getElementById('music');
+            if(music.getAttribute('src') == "unknown"){
+                startMix();
+            }
+            else{
+               var music = document.getElementById('music');
+               music.play();
+            }
+        };
+        function startMix(){
+            console.log('line');
+            var tracks = document.getElementsByClassName('true');
+            var index = Math.floor(Math.random()*tracks.length);
+            var music = document.getElementById('music');
+            music.src = tracks[index].getAttribute('src');
+            tracks[index].title = "true";
+            music.play();
+            setTrackChange();
+        }
+        function setTrackChange(timePlaceHolder){
+            console.log('line');
+            var tracks = document.getElementsByClassName('true');
+            var unplayedTracks = [];
+            var startTime = 0.0;
+            var endTime = 0.0
+            var music = document.getElementById('music')
+            var trackName = music.getAttribute('src').substring(13);
+            var currentTrack = document.getElementById(trackName);
+            for(var i = 0; i < tracks.length; i++){
+                if(tracks[i].getAttribute('title') === "false"){
+                    unplayedTracks.push(tracks[i])
+                }
+            }
+            var i;
+            var currentPattern = currentTrack.getAttribute('data-pattern').replace("#", "");
+            if(timePlaceHolder){
+                i = getBeat(timePlaceHolder, currentTrack.getAttribute('data-tempo'));
+            }
+            else{
+                i = 0;
+            }
+            while( i < currentPattern.length){
+                var subPattern = currentPattern.substring(i, i+4);
+                for(var j = 0; j < unplayedTracks.length; j++){
+                    var testPattern = unplayedTracks[j].getAttribute('data-pattern').replace("#", "");
+                    if(testPattern.indexOf(subPattern) > 0){
+                        startTime = getTime( j, unplayedTracks[j].getAttribute('data-tempo'));
+                        endTime = getTime(j, currentTrack.getAttribute('data-tempo'));
+                        music.addEventListener("timeupdate", function(){
+                            if(this.currentTime >= endTime) {
+                                changeTrack(unplayedTracks[j].getAttribute('id'), startTime);
+                                return;
+                            }
+                        });
+                    }
+                }
+                i+=4
+            }
+        }
+        function changeTrack(nextTrackId, startTime){
+            var music = document.getElementById('music');
+            var nextTrack = document.getElementById(nextTrackId);
+            nextTrack.title = "true";
+            music.src = nextTrack.getAttribute('src');
+            music.currentTime = startTime;
+            music.play();
+            setTrackChange(startTime);
+        }
+        function getTime( beat, tempo){
+            var bps = tempo/60;
+            var time = beat/bps;
+            return time;
+        }
+        function getBeat(time, tempo){
+            var bps = tempo/60;
+            var beat = time*bps;
+            return beat;
+
         }
     </script>
 {% endblock %}
