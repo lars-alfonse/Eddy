@@ -16,6 +16,8 @@ class SongProcessor():
             note = self.translator.signalToNote(self.splitSignal[index], self.song.sampleRate)
             self.song.note_on_beat.append((note, index))
         self.patternDetector()
+        cleanpattern = self.song.pattern.replace("#",'')
+        self.song.pattern = cleanpattern
         DatabaseAccess.saveSong(self.song, file)
 
     def patternDetector(self):

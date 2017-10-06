@@ -7,10 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89b2d7eb-148c-4c2f-8784-37787bd7279b" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/music/DaftPunk-Harder_Better_Faster_Stronger.wav" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/static/music/EstelleRemix.wav" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/eddy.db" afterPath="$PROJECT_DIR$/eddy.db" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/file.obj" afterPath="$PROJECT_DIR$/file.obj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/home.html" afterPath="$PROJECT_DIR$/templates/home.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SongProcessor.py" afterPath="$PROJECT_DIR$/SongProcessor.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -44,8 +46,18 @@
       <file leaf-file-name="SongProcessor.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SongProcessor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="18" column="20" lean-forward="true" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+            <state relative-caret-position="399">
+              <caret line="20" column="48" lean-forward="true" selection-start-line="20" selection-start-column="48" selection-end-line="20" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="429">
+              <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -73,10 +85,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatabaseAccess.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DatabaseAccess.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DatabaseAccess.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
+            <state relative-caret-position="-27">
               <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding />
             </state>
@@ -143,9 +155,10 @@
         <option value="$PROJECT_DIR$/SongCleaner.py" />
         <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/NoteTranslator.py" />
-        <option value="$PROJECT_DIR$/SongProcessor.py" />
         <option value="$PROJECT_DIR$/routes.py" />
         <option value="$PROJECT_DIR$/templates/home.html" />
+        <option value="$PROJECT_DIR$/SongProcessor.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -231,7 +244,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.routes">
+  <component name="RunManager" selected="Python.SongCleaner">
     <configuration name="SongCleaner" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -326,8 +339,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.routes" />
-        <item index="1" class="java.lang.String" itemvalue="Python.SongCleaner" />
+        <item index="0" class="java.lang.String" itemvalue="Python.SongCleaner" />
+        <item index="1" class="java.lang.String" itemvalue="Python.routes" />
         <item index="2" class="java.lang.String" itemvalue="Python.db_migration" />
         <item index="3" class="java.lang.String" itemvalue="Python.db_upgrade" />
         <item index="4" class="java.lang.String" itemvalue="Python.db_create" />
@@ -432,13 +445,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/werkzeug/debug/tbtools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="400" column="0" lean-forward="false" selection-start-line="400" selection-start-column="0" selection-end-line="400" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Anaconda3/Lib/selectors.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -794,18 +800,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SongProcessor.py">
+    <entry file="file://$PROJECT_DIR$/DatabaseAccess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="18" column="20" lean-forward="true" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+        <state relative-caret-position="-27">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DatabaseAccess.py">
+    <entry file="file://$PROJECT_DIR$/SongProcessor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state relative-caret-position="399">
+          <caret line="20" column="48" lean-forward="true" selection-start-line="20" selection-start-column="48" selection-end-line="20" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
           <folding />
         </state>
       </provider>
