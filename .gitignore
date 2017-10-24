@@ -100,8 +100,8 @@ ENV/
 # mypy
 .mypy_cache/
 
-#db
+# db
 eddy.db
 .db
-.static/music/*
+static/music/*
 .wav
