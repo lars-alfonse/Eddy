@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+<table>
+    <tr>
+        <th>Track:</th>
+        <th>Tempo:</th>
+        <th>Pattern:</th>
+    </tr>
+    {% for item in tracks %}
+        <tr>
+            <td>{{item.name}}</td>
+            <td>{{item.tempo}}</td>
+            <td>{{item.pattern}}</td>
+        </tr>
+    {% endfor %}
+</table>
+<p>Key: X = no note</p>
+{% endblock %}

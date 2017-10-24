@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+<table>
+    <tr>
+        <th>Track:</th>
+        <th>End Time:</th>
+        <th>Track:</th>
+        <th>Start Time:</th>
+        <th>Date:</th>
+    </tr>
+    {% for item in history %}
+        <tr>
+            <td>{{item.currentTrack}}</td>
+            <td>{{item.endTime}}</td>
+            <td>{{item.nextTrack}}</td>
+            <td>{{item.startTime}}</td>
+            <td>{{item.timeOfChange}}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

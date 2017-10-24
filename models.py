@@ -43,3 +43,12 @@ class Song(db.Model):
     path = db.Column(db.String(200), unique=True)
     file = db.Column(db.LargeBinary)
 
+class TrackChange(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    currentTrack = db.Column(db.String(100))
+    endTime = db.Column(db.Float)
+    pattern = db.Column(db.String(10))
+    nextTrack = db.Column(db.String(100))
+    startTime = db.Column(db.Float)
+    timeOfChange =  db.Column(db.DateTime)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

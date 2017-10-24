@@ -1,157 +1,245 @@
 {% extends "layout.html" %}
 {% block content %}
-    <form method=post enctype=multipart/form-data>
-      <p><input type=file name=file>
-         <input type=submit value=Upload>
-    </form>
+    <div align="left">
+        <form method=post enctype=multipart/form-data>
+            <p align="left" style="float left"><input type=file name=file>
+                <input type=submit value=Upload></p>
+        </form>
+    </div>
     <div id="demo-contents"></div>
     <div id="base"></div>
 
-    <script type="text/babel">
+        <script type="text/babel">
+            class SongFile extends React.Component{
+                render(){
+                    return(
+                        <li id="songSelector" className="active" data-value={this.props.songData.source} data-trackName={this.props.songData.track} onClick={changeSource}> {this.props.songData.songName} </li>
+                    );
+                }
 
+            }
+            class SongFiles extends React.Component{
+                constructor() {
+                    super();
+                    this.state = {
+                        value: null,
+                    };
+                }
+                componentDidMount(){
+                    this.setState();
+                }
+                renderSongs(){
+                    var songButtons = [];
+                    var tracks = document.getElementsByTagName('source');
+                    for(var i = 0; i < tracks.length; i++){
+                        var data = {
+                            source: tracks[i].getAttribute('src'),
+                            songName: tracks[i].getAttribute('id').replace(/_/gi, " ").replace(".wav", ""),
+                            track:tracks[i].getAttribute('id')
+
+                        }
+                        songButtons.push(<SongFile songData={data} />);
+                    }
+                    return <ul className="trackList">{songButtons}</ul>;
+                }
+                render(){
+                    return(
+                        <div>
+                            {this.renderSongs()}
+                        </div>
+                    );
+                }
+            }
+            class Track extends React.Component{
+                render(){
+                    return (
+                        <source className="track" id={this.props.trackData.songName} src={this.props.trackData.source} data-pattern={this.props.trackData.pattern} data-seconds={this.props.trackData.seconds} data-beats={this.props.trackData.beats} data-tempo={this.props.trackData.tempo} className="true" title="false"></source>
+                    );
+                }
+            }
+            class SuggestionList extends React.Component {
+                render(){
+                    return(
+                        <ul className="suggestionList">
+                        </ul>
+                    );
+                }
+            }
+            class Play extends React.Component {
+                render() {
+                    return (
+                        <button className="playButton" onClick={aud_play_pause} title="play/pause">
+                            <i className="fa fa-play" aria-hidden="true" id="playPause"></i>
+                        </button>
+                    );
+                }
+            }
+            class Skip extends React.Component {
+                render(){
+                    return (
+                        <button className="playButton" onClick={skip} title="skip ahead">
+                            <i className="fa fa-chevron-right" aria-hidden="true" id="playPause"></i>
+                        </button>
+                    );
+                }
+            }
+            class StopSkip extends React.Component {
+                render(){
+                    return (
+                        <button className="playButton" onClick={stopSkip} title="stop shuffle">
+                            <i className="fa fa-share" aria-hidden="true"></i>
+                        </button>
+                    );
+                }
+            }
+            class Song extends React.Component {
+                constructor(props){
+                    super(props);
+                    this.state = {
+                        seconds: 0,
+                        time: "",
+                        trackName: ""
+                    }
+                }
+                componentDidMount(){
+                    this.audio.addEventListener("timeupdate", this.updateTimer.bind(this));
+                }
+                updateTimer(){
+                    var audio = document.getElementById('music');
+                    this.setState({seconds: audio.currentTime });
+                    this.setState(function (state, props){
+                        var min = 0;
+                        var sec = state.seconds;
+                        while(sec > 60){
+                            sec -= 60;
+                            min ++
+                        }
+                        if(sec < 10){
+                            var secondTimes = "0" + Math.floor(sec).toString();
+                        }
+                        else{
+                            var secondTimes = Math.floor(sec).toString();
+                        }
+                        return {
+                            time: min.toString() + ":" + secondTimes
+                        }
+                    });
+                    this.setState({trackName: audio.getAttribute('src').substring(13)});
+                }
+                renderTimeStamp(){
+                    return <TimeStamp time = {this.state.time} />
+                }
+                renderTrackName(){
+                    return <CurrentTrackDisplay trackName = {this.state.trackName} />
+                }
+                render(){
+                    return (
+                        <div>
+                            <audio type="audio/wav" autostart="false" volume="1.0" preload="auto" src="unknown" id="music" ref={(audio) =>{this.audio = audio}}>
+                            </audio>
+                            {this.renderTimeStamp()}
+                            {this.renderTrackName()}
+                        </div>
+                    );
+                }
+            }
+            class TimeStamp extends React.Component{
+                render(){
+                    return (
+                        <div>
+                            <p> Time :{this.props.time} </p>
+                        </div>
+                    );
+                }
+
+            }
+            class CurrentTrackDisplay extends React.Component {
+                render(){
+                    return (
+                        <p> {this.props.trackName}</p>
+                    );
+                }
+            }
+            class WavePlayer extends React.Component {
+                renderPlay(){
+                    return <Play />;
+                }
+                renderMusic(){
+                    return <SongFiles />
+                }
+                renderTracks(){
+                    var tracks = [];
+                    {% for item in list %}
+                        var data = new Object();
+                        data.songName = "{{item.name}}";
+                        data.source =  "{{item.path}}";
+                        data.pattern = "{{item.pattern}}";
+                        data.seconds = "{{item.seconds}}";
+                        data.tempo  = "{{item.tempo}}";
+                        data.beats = "{{item.beats}}";
+                        tracks.push(<Track trackData={data} />);
+                    {% endfor %}
+                    return <div>{tracks}</div>
+                }
+                renderAudio(){
+                    return <Song />;
+                }
+                renderSkip(){
+                    return <Skip />;
+                }
+                renderStopSkip(){
+                    return <StopSkip />;
+                }
+                render() {
+                    return (
+                        <div className="wavePlayer">
+                            <div className="uiDisplay">
+                                <div className="buttons">
+                                    {this.renderPlay()}
+                                    {this.renderSkip()}
+                                    {this.renderStopSkip()}
+                                </div>
+                                <div className="trackDisplay">
+                                    {this.renderAudio()}
+                                </div>
+                            </div>
+                            {this.renderTracks()}
+                            {this.renderMusic()}
+                            <SuggestionList />
+                        </div>
+                    );
+                }
+            }
+            ReactDOM.render(
+                <WavePlayer />,
+                document.getElementById('base')
+            )
+
+        </script>
+    <script>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
         function changeSource(e){
             e.preventDefault();
             var elm = e.target;
-            var audio = document.getElementById('music');
-            audio.src = elm.getAttribute('data-value');
-            audio.load();
+            var id = elm.getAttribute('data-trackName');
+            var track = document.getElementById(id);
+            var trackStatus = track.getAttribute('class');
+            if(trackStatus === 'true'){
+                track.className = 'false';
+                elm.className = 'inactive';
+            }
+            else{
+                track.className = 'true';
+                elm.className = 'active';
+            }
         };
-        document.addEventListener("DOMContentLoaded", function() {
-            var _handleFileDrop = function(files, event) {
-                console.log(files, event);
-            };
-            var styles = {border: "1px solid black", width: 600, color: "black", padding: 20};
-            var myUploader = React.createElement(
-                "div", {className: "my-uploader", style: styles},
-                    "This is the \".my-uploader\" div. Try dragging a file!",
-                    React.createElement(
-                        ReactFileDrop, {onDrop: _handleFileDrop, frame: document, dropEffect: "copy"},
-                            "Drop some files here!"
-                    )
-            );
-            React.render(myUploader, document.getElementById("demo-contents"))
-        });
-        class SongFile extends React.Component{
-            render(){
-                return(
-                    <li id="songSelector" data-value={this.props.songData.source} onClick={changeSource}> {this.props.songData.songName} </li>
-                );
-
-            }
-
-        }
-        class SongFiles extends React.Component{
-            constructor() {
-                super();
-                this.state = {
-                    value: null,
-                };
-            }
-            componentDidMount(){
-                this.setState();
-            }
-            renderSongs(){
-                var songButtons = [];
-                var tracks = document.getElementsByTagName('source');
-                for(var i = 0; i < tracks.length; i++){
-                    var data = {
-                        source: tracks[i].getAttribute('src'),
-                        songName: tracks[i].getAttribute('id')
-                    }
-                    songButtons.push(<SongFile songData={data} />);
-                }
-                return <ul>{songButtons}</ul>;
-            }
-            render(){
-                return(
-                    <div>
-                        {this.renderSongs()}
-                    </div>
-                );
-            }
-        }
-        class Track extends React.Component{
-            render(){
-                return (
-                    <source className="track" id={this.props.trackData.songName} src={this.props.trackData.source} data-pattern={this.props.trackData.pattern} data-seconds={this.props.trackData.seconds} data-beats={this.props.trackData.beats} data-tempo={this.props.trackData.tempo} className="true" title="false"></source>
-                );
-            }
-        }
-        class Play extends React.Component {
-            render() {
-                return (
-                    <button className="playButton" onClick={aud_play_pause}>
-                        <i className="fa fa-play" aria-hidden="true" id="playPause"></i>
-                    </button>
-                );
-            }
-        }
-        class Skip extends React.Component {
-            render(){
-                return (
-                    <button className="playButton" onClick={skip}>
-                        <i className="fa fa-chevron-right" aria-hidden="true" id="playPause"></i>
-                    </button>
-                );
-            }
-        }
-        class Song extends React.Component {
-            render(){
-                return (
-                    <audio type="audio/wav" autostart="false" volume="1.0" preload="auto" src="unknown" id="music">
-                    </audio>
-                );
-            }
-        }
-        class WavePlayer extends React.Component {
-            renderPlay(){
-                return <Play />;
-            }
-            renderMusic(){
-                return <SongFiles />
-            }
-            renderTracks(){
-                var tracks = [];
-                {% for item in list %}
-                    var data = new Object();
-                    data.songName = "{{item.name}}";
-                    data.source =  "{{item.path}}";
-                    data.pattern = "{{item.pattern}}";
-                    data.seconds = "{{item.seconds}}";
-                    data.tempo  = "{{item.tempo}}";
-                    data.beats = "{{item.beats}}";
-                    tracks.push(<Track trackData={data} />);
-                {% endfor %}
-                return <div>{tracks}</div>
-            }
-            renderAudio(){
-                return <Song />;
-            }
-            renderSkip(){
-                return <Skip />;
-            }
-            render() {
-                return (
-                    <div className="wavePlayer">
-                        {this.renderPlay()}
-                        {this.renderSkip()}
-                        {this.renderAudio()}
-                        {this.renderTracks()}
-                        {this.renderMusic()}
-                    </div>
-                );
-            }
-        }
-        ReactDOM.render(
-            <WavePlayer />,
-            document.getElementById('base')
-        )
-
-    </script>
-    <script>
         function skip(){
             var song = document.getElementById("music");
-            song.currentTime += 30;
+            song.currentTime = 1000;
+        }
+        function stopSkip(){
+            var song = document.getElementById("music");
+            stopTime = song.duration;
         }
         function aud_play_pause() {
             var mySound = document.getElementById("music");
@@ -188,54 +276,163 @@
             music.play();
             setTrackChange();
         }
-        function setTrackChange(timePlaceHolder){
-            console.log('line');
-            var tracks = document.getElementsByClassName('true');
-            var unplayedTracks = [];
-            var startTime = 0.0;
-            var endTime = 0.0
-            var music = document.getElementById('music')
-            var trackName = music.getAttribute('src').substring(13);
-            var currentTrack = document.getElementById(trackName);
-            for(var i = 0; i < tracks.length; i++){
-                if(tracks[i].getAttribute('title') === "false"){
-                    unplayedTracks.push(tracks[i])
-                }
-            }
-            var i;
-            var currentPattern = currentTrack.getAttribute('data-pattern').replace("#", "");
-            if(timePlaceHolder){
-                i = getBeat(timePlaceHolder, currentTrack.getAttribute('data-tempo'));
-            }
-            else{
-                i = 0;
-            }
-            while( i < currentPattern.length){
-                var subPattern = currentPattern.substring(i, i+4);
+        function getMatchingPatterns(currentPattern, patternStart){
+            var unplayedTracks = getUnplayedTracks();
+            var patterns = [];
+            while( patternStart < currentPattern.length){
+                var subPattern = currentPattern.substring(patternStart, patternStart+4);
                 for(var j = 0; j < unplayedTracks.length; j++){
                     var testPattern = unplayedTracks[j].getAttribute('data-pattern').replace("#", "");
                     if(testPattern.indexOf(subPattern) > 0){
-                        startTime = getTime( j, unplayedTracks[j].getAttribute('data-tempo'));
-                        endTime = getTime(j, currentTrack.getAttribute('data-tempo'));
-                        music.addEventListener("timeupdate", function(){
-                            if(this.currentTime >= endTime) {
-                                changeTrack(unplayedTracks[j].getAttribute('id'), startTime);
-                                return;
-                            }
-                        });
+                        patterns.push(patternStart);
                     }
                 }
-                i+=4
+                patternStart += 4;
             }
+            return patterns;
+        }
+        function choosePattern(patternStart){
+            var currentTrack = getCurrentTrack();
+            var currentPattern = currentTrack.getAttribute('data-pattern').replace("#", "");
+            var patterns = getMatchingPatterns(currentPattern, patternStart);
+            var chosenPattern = Math.floor(Math.random()*patterns.length);
+            var patternIndex = patterns[chosenPattern];
+            return patternIndex;
+        }
+        function getUnplayedTracks(){
+            var unplayedTracks = [];
+            var tracks = document.getElementsByClassName('true');
+            for(var i = 0; i < tracks.length; i++){
+                if(tracks[i].getAttribute('title') === "false"){
+                    unplayedTracks.push(tracks[i]);
+                }
+            }
+            return unplayedTracks;
+        }
+        function getCurrentTrack(){
+            var trackName = music.getAttribute('src').substring(13);
+            var currentTrack = document.getElementById(trackName);
+            return currentTrack;
+        }
+        function chooseNextTrack(patternIndex){
+            var currentTrack = getCurrentTrack();
+            var unplayedTracks = getUnplayedTracks();
+            var currentPattern = currentTrack.getAttribute('data-pattern').replace("#", "");
+            var currentSubPattern = currentPattern.substring(patternIndex, patternIndex+4);
+            var matchingTracks = [];
+            for(var k = 0; k < unplayedTracks.length; k++){
+                checkedPattern = unplayedTracks[k].getAttribute('data-pattern').replace("#", "");
+                if(checkedPattern.indexOf(currentSubPattern) > 0){
+                    matchingTracks.push(unplayedTracks[k]);
+                }
+            }
+            var chosenTrackIndex = Math.floor(Math.random()*matchingTracks.length);
+            var chosenTrack = matchingTracks[chosenTrackIndex];
+            return chosenTrack;
+        }
+        function getStartingBeat(chosenTrackPattern, patternIndex){
+            var currentTrack = getCurrentTrack();
+            var currentPattern = currentTrack.getAttribute('data-pattern').replace("#", "").substring(patternIndex, patternIndex+4);
+            var l = 0;
+            var chosenTrackIndexes = [];
+            while( l < chosenTrackPattern.length){
+                var chosenTrackSubstring = chosenTrackPattern.substring(l, chosenTrackPattern.length - 1);
+                if(chosenTrackSubstring.indexOf(currentPattern) > 0 ){
+                    l += chosenTrackSubstring.indexOf(currentPattern);
+                    chosenTrackIndexes.push(l);
+                }
+                l+=4;
+            }
+            var chosenIndex = Math.floor(Math.random()*chosenTrackIndexes.length);
+            var chosenBeat = chosenTrackIndexes[chosenIndex];
+            return chosenBeat;
+        }
+        function setTrackChange(timePlaceHolder){
+            var i;
+            var currentTrack = getCurrentTrack();
+            if(timePlaceHolder){
+                i = getBeat(timePlaceHolder, currentTrack.getAttribute('data-tempo')) + 64;
+            }
+            else{
+                i = 64;
+            }
+            var patternIndex = choosePattern(i);
+            var chosenTrack = chooseNextTrack(patternIndex);
+            var music = document.getElementById('music');
+            if(chosenTrack){
+            var chosenTrackPattern = chosenTrack.getAttribute('data-pattern').replace("#", "");
+            var startingBeat = getStartingBeat(chosenTrackPattern, patternIndex);
+            var startTime = getTime(startingBeat, chosenTrack.getAttribute('data-tempo'));
+            var endTime = getTime(patternIndex, currentTrack.getAttribute('data-tempo'));
+            var nextTrackId = chosenTrack.getAttribute('id');
+            startListener(endTime, nextTrackId, startTime);
+            }
+            else{
+                showSuggestions(currentTrack.getAttribute('data-pattern').toString());
+                startResetListener();
+            }
+        }
+        function showSuggestions(pattern){
+            getTrackSuggestions(pattern);
+
+        }
+        function getTrackSuggestions(pattern){
+             $.getJSON($SCRIPT_ROOT + '/getTrackSuggestions', {
+                pattern: pattern,
+                }, function(response) {
+                    updateSuggestionDisplay(response);
+            });
+        }
+        function updateSuggestionDisplay(response){
+            var list = document.getElementsByClassName('suggestionList');
+            $(".suggestionList").empty();
+            var newListItem = document.createElement("li");
+            var content = document.createTextNode("No tracks can mix, here are some suggestions");
+            newListItem.appendChild(content);
+            list[0].appendChild(newListItem);
+            for(var i=0; i < response.tracks.length; i++){
+                newListItem = document.createElement("li");
+                content = document.createTextNode(response.tracks[i]);
+                newListItem.appendChild(content);
+                list[0].appendChild(newListItem);
+            }
+
+        }
+        function startResetListener(){
+            var music = document.getElementById('music');
+            music.addEventListener("timeupdate", function(){
+                console.log(this.currentTime);
+                if(this.currentTime >= this.duration){
+                    $(".suggestionList").empty();
+                    this.removeEventListener("timeupdate", arguments.callee);
+                    startMix();
+                }
+            });
+        }
+        var stopTime;
+        function startListener(endTime, nextTrackId, startTime){
+            var music = document.getElementById('music');
+            stopTime = endTime
+            music.addEventListener("timeupdate", function(){
+                console.log(this.currentTime);
+                if(this.currentTime >= stopTime) {
+                    console.log("hit");
+                    this.removeEventListener("timeupdate", arguments.callee);
+                    changeTrack(nextTrackId, startTime);
+                 }
+            } );
         }
         function changeTrack(nextTrackId, startTime){
             var music = document.getElementById('music');
             var nextTrack = document.getElementById(nextTrackId);
             nextTrack.title = "true";
+            var currentTrackId = music.getAttribute('src').substring(13);
+            ajaxPoster(currentTrackId,nextTrackId, music.currentTime,startTime);
             music.src = nextTrack.getAttribute('src');
+            music.load();
             music.currentTime = startTime;
             music.play();
-            setTrackChange(startTime);
+            setTimeout(setTrackChange(startTime),3000);
         }
         function getTime( beat, tempo){
             var bps = tempo/60;
@@ -246,7 +443,21 @@
             var bps = tempo/60;
             var beat = time*bps;
             return beat;
-
+        }
+        function ajaxPoster(currentSong, nextSong, endTime, startTime){
+            var trackSource = document.getElementById(currentSong);
+            var tempo = trackSource.getAttribute('data-tempo');
+            var beat = getBeat(endTime, tempo);
+            var pattern = trackSource.getAttribute('data-pattern').substring(beat, beat+4);
+            $.getJSON($SCRIPT_ROOT + '/updateTrackHistory', {
+                currentSong: currentSong,
+                pattern: pattern,
+                nextSong: nextSong,
+                endTime: endTime,
+                startTime: startTime
+                }, function(data) {
+                    console.log('yay');
+            });
         }
     </script>
 {% endblock %}

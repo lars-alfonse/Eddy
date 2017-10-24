@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>Eddy</title>
     <script src="{{ url_for('static', filename='js/react.min.js') }}"></script>
@@ -14,30 +14,84 @@
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous">
     </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <style>
+        li.active{
+            color: white;
+            background-color: #586670;
 
+        }
+        ul.trackList{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        ul.suggestionList
+        {
+            list-style: none;
+            text-color white;
+            background-color: grey;
+            margin: 0;
+            padding: 0;
+        }
+        li.inactive{
+            color: #8c8c8c;
+            background-color: #cccccc;
+        }
+        div.wavePlayer
+        {
+            background-color: white;
+        }
+        div.buttons
+        {
+            float: left;
+            align: center;
+            margin-left: 10 px;
+            margin-right 20 px;
+
+        }
+        div.trackDisplay
+        {
+            padding-left: 10 px;
+            text-align: center;
+        }
+        .playButton
+        {
+            align: center;
+            margin-bottom: 10px;
+            margin-left: 4px;
+            marging-right: 4px;
+        }
+        li { cursor: pointer; cursor: hand; list-style-type: none; padding-left: 10px; padding-right: 10px; padding-top: 4px; padding-bottom: 2px; }
+        ul  {list-style-type: none;}
+    </style>
 </head>
 <body>
 
     <header>
-        <div class="container">
-            <h1 class="logo">Eddy</h1>
-            <strong><nav>
-                <ul class="menu">
-                    <li><a href="{{ url_for('home') }}">Home</a></li>
-                    {% if g.user.is_authenticated %}
-                        <li><a href="{{ url_for('login') }}">Logout</a></li>
-                    {% else %}
-                        <li><a href="{{ url_for('login') }}">Login</a></li>
-                    {% endif %}
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{{ url_for('home') }}">Eddy</a>
+                </div>
+                <ul class="nav navbar-nav" style="float: left">
+                    <li><a href="{{ url_for('history')}}">History</a></li>
+                    <li><a href="{{ url_for('trackInfo') }}">Track Info</a></li>
                 </ul>
-            </nav></strong>
-        </div>
+                <ul class="nav navbar-nav" style="float: right">
+                        {% if g.user.is_authenticated %}
+                            <li><a href="{{ url_for('login') }}">Logout</a></li>
+                        {% else %}
+                            <li><a href="{{ url_for('login') }}">Login</a></li>
+                        {% endif %}
+                </ul>
+            </div>
+        </nav>
     </header>
 
     <div class="container">
         {% block content %}
         {% endblock %}
     </div>
-
 </body>
 </html>

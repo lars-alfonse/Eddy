@@ -2,15 +2,6 @@ import Pickler, models, SongData
 from routes import db
 from flask import g
 
-
-
-
-
-
-
-
-
-
 def getSongs():
     user = g.user
     songs = []
@@ -39,10 +30,9 @@ def saveSong(song, path):
         print(item)
     db.session.commit()
 
-
-
-
-
+def AddTrackChange(change):
+    db.session.add(change)
+    db.session.commit()
 
 def checkForSong(dbsong):
     query = db.session.query(models.Song).filter(models.Song.name == dbsong.name, models.Song.seconds == dbsong.seconds)
@@ -50,3 +40,18 @@ def checkForSong(dbsong):
         return False
     else:
         return False
+
+def getHistory():
+    user = g.user
+    query = db.session.query(models.TrackChange).filter(models.TrackChange.user_id == user.id)
+    return query
+
+def getSuggestions(pattern):
+    query = db.session.query(models.TrackChange)
+    matches = []
+    for item in query:
+        if item.pattern:
+            if item.pattern in pattern:
+                if item.currentTrack not in matches:
+                    matches.append(item.currentTrack)
+    return matches

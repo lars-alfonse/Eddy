@@ -8,3 +8,13 @@ class SongData(object):
     note_on_beat = [()]
     path = ""
     pattern = ""
+    def __init__(self):
+        self.name = ""
+        self.signal = []
+        self.sampleRate = 0
+        self.seconds = 0.0
+        self.tempo = 0.0
+        self.beats = 0.0
+        self.note_on_beat = [()]
+        self.path = ""
+        self.pattern = ""

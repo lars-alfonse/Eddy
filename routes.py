@@ -1,7 +1,8 @@
 import sqlite3
+import datetime
 import os
 from flask import Flask, request, session, g, url_for, abort, \
-     render_template, flash, redirect
+     render_template, flash, redirect, jsonify
 from werkzeug.utils import secure_filename
 from forms import LoginForm, RegisterForm
 import flask_sqlalchemy
@@ -44,8 +45,7 @@ def home():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            processor = SongProcessor.SongProcessor()
-            processor.process(os.path.join(app.config['UPLOAD_FOLDER'], filename), filename)
+            SongProcessor.process(os.path.join(app.config['UPLOAD_FOLDER'], filename), filename)
             if g.user:
                 if g.user is not None and g.user.is_authenticated:
                     songlist = DatabaseAccess.getSongs()
@@ -102,6 +102,45 @@ def register():
         return redirect('login')
     return render_template('register.html', title='Register', form=form)
 
+@app.route('/updateTrackHistory', methods=['POST','GET'])
+def updateTrackHistory():
+    if g.user:
+        if g.user is not None and g.user.is_authenticated:
+            user = g.user
+            change = models.TrackChange()
+            change.user_id = user.id
+            change.currentTrack = request.args.get('currentSong', "", type=str)
+            change.pattern = request.args.get('pattern', '', type=str)
+            change.nextTrack = request.args.get('nextSong', "", type=str)
+            change.startTime = request.args.get('startTime', 0.0, type=float)
+            change.endTime = request.args.get('endTime', 0.0, type=float)
+            change.timeOfChange = datetime.datetime.now()
+            DatabaseAccess.AddTrackChange(change)
+            return "success"
+
+@app.route('/history')
+def history():
+    if g.user:
+        if g.user is not None and g.user.is_authenticated:
+            historyItems = DatabaseAccess.getHistory()
+            return render_template('history.html', history=historyItems)
+    else:
+        return redirect('index')
+
+@app.route('/trackInfo')
+def trackInfo():
+    if g.user:
+        if g.user is not None and g.user.is_authenticated:
+            tracks = DatabaseAccess.getSongs()
+            return render_template('trackInfo.html', tracks=tracks)
+    else:
+        return redirect('index')
+
+@app.route('/getTrackSuggestions', methods=['GET'])
+def getTrackSuggestions():
+    pattern = request.args.get('pattern', '', type=str)
+    suggestions = DatabaseAccess.getSuggestions(pattern)
+    return jsonify(tracks=suggestions)
 
 if __name__ == '__main__':
     app.run(debug=True)
