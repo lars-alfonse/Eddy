@@ -37,6 +37,8 @@ class Email(db.Model):
         return '<Email %r>' % (self.email)
 
 class Song(db.Model):
+    def __repr__(self):
+        return str(self)
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     seconds = db.Column(db.Integer)
